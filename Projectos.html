@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projetos e Atividades – Marcelo de Flávio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #007bff;
+  --secondary: #f70000;
+  --accent: #fff;
+  --bg: #f5f5fb;
+  --text: #3f373e;
+  --radius: 16px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.1);
+  --maxw: 1100px;
+  --transition: 0.3s ease-in-out;
+}
+
+/* DARK MODE */
+body.dark {
+  --primary: #3399ff;
+  --secondary: #ff5555;
+  --accent: #222;
+  --bg: #121212;
+  --text: #ddd;
+}
+
+/* RESET */
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family:'Inter', sans-serif; background:var(--bg); color:var(--text); line-height:1.6; transition: background 0.3s, color 0.3s; }
+a { text-decoration:none; color:inherit; }
+img { display:block; max-width:100%; }
+
+/* HEADER */
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 40px;
+  background: var(--accent);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky; top:0; z-index:1000; transition: background 0.3s,color 0.3s,padding 0.3s;
+  backdrop-filter: blur(10px);
+}
+header .logo { display:flex; align-items:center; gap:15px; }
+header .logo img { width:55px; height:55px; border-radius:50%; object-fit:cover; border:2px solid var(--primary); transition: transform 0.3s, box-shadow 0.3s; }
+header .logo img:hover { transform: scale(1.1); box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+header .logo-text { font-size:1.6rem; font-weight:700; color:var(--primary); letter-spacing:1px; text-shadow:1px 1px 3px rgba(0,0,0,0.2); }
+
+header .header-right { display:flex; align-items:center; gap:20px; }
+header .header-right button.dark-btn { background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--text); transition: color 0.3s, transform 0.3s; }
+header .header-right button.dark-btn:hover { color: var(--primary); transform: rotate(20deg); }
+header .header-right .lang-switch button { margin-left:5px; padding:6px 12px; border-radius:10px; border:1px solid var(--primary); background: var(--accent); color:var(--primary); font-weight:600; cursor:pointer; transition: all 0.3s ease; }
+header .header-right .lang-switch button:hover { background: var(--primary); color:var(--accent); transform: scale(1.05); }
+
+header nav.menu { display:flex; gap:20px; margin-left:30px; }
+header nav.menu a { position:relative; font-weight:500; color:var(--text); padding:8px 12px; border-radius:8px; transition: all 0.3s ease; }
+header nav.menu a.cta { padding:10px 18px; background:var(--primary); color:var(--accent); font-weight:600; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.15); }
+header nav.menu a.cta:hover { background: var(--secondary); box-shadow:0 6px 12px rgba(0,0,0,0.25); transform: translateY(-2px); }
+header nav.menu a::after { content:""; position:absolute; width:0%; height:2px; background:var(--primary); left:0; bottom:0; transition:width 0.3s ease; }
+header nav.menu a:hover::after { width:100%; }
+
+/* MAIN */
+main { max-width:var(--maxw); margin:40px auto; padding:0 20px; display:flex; flex-direction:column; gap:40px; }
+
+/* BIG CARD */
+.big-card {
+  background: linear-gradient(135deg,#e0f0ff 0%,#ffffff 100%);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 30px;
+  display: flex; flex-wrap: wrap; align-items:center; gap:30px;
+  transition: transform var(--transition), background 0.3s, color 0.3s;
+}
+body.dark .big-card { background: linear-gradient(135deg,#222 0%,#333 100%); color: var(--text); }
+.big-card:hover { transform: translateY(-5px); }
+
+/* MINI CARDS */
+.mini-cards { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+.card { background: var(--accent); border-radius: var(--radius); padding:20px; width:250px; text-align:center; box-shadow: var(--shadow); transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color 0.3s; cursor:pointer; }
+body.dark .card { background:#333; color: var(--text); }
+.card img { width:100%; height:140px; object-fit:cover; border-radius:12px; margin-bottom:12px; }
+.card h3 { color: var(--primary); font-size:18px; margin-bottom:8px; }
+.card p { font-size:0.95rem; color:var(--text); }
+.card:hover { transform:translateY(-6px) scale(1.03); box-shadow:0 15px 35px rgba(0,0,0,0.2); background:#fff0f0; }
+body.dark .card:hover { background:#444; }
+
+/* MODAL */
+.modal { display:none; position: fixed; z-index:2000; left:0; top:0; width:100%; height:100%; overflow:auto; background: rgba(0,0,0,0.8); }
+.modal-content { background:#fff; margin:5% auto; padding:20px; border-radius:20px; max-width:800px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; position:relative; }
+.modal-content img { max-width:300px; border-radius:15px; display:none; }
+.modal-content img.active { display:block; }
+.modal-text { max-width:400px; margin-left:20px; color:#333; font-size:1rem; display:none; }
+.modal-text.active { display:block; }
+.modal-content .close { position:absolute; top:15px; right:25px; font-size:30px; font-weight:bold; color:#333; cursor:pointer; }
+.modal-controls { width:100%; display:flex; justify-content:space-between; margin-top:20px; }
+.modal-controls button { background: var(--primary); color:#fff; border:none; padding:10px 18px; border-radius:10px; cursor:pointer; transition:0.3s; }
+.modal-controls button:hover { background: var(--secondary); transform:scale(1.05); }
+
+/* FLOAT BUTTON */
+.modal-float { position: fixed; bottom: 60px; right: 25px; width:60px; height:60px; background: var(--primary); color:#fff; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:28px; font-weight:bold; box-shadow:0 4px 12px rgba(0,0,0,0.3); cursor:pointer; transition:0.3s; z-index:1000; }
+.modal-float:hover { transform:scale(1.1); }
+
+/* FOOTER */
+footer { background: var(--accent); color: var(--text); text-align:center; padding:25px 20px; font-size:0.95rem; box-shadow:0 -5px 15px rgba(0,0,0,0.05); position: relative; bottom:0; width:100%; }
+body.dark footer { background:#111; color:#ccc; }
+footer a { color: var(--primary); font-weight:600; transition: color 0.3s, text-shadow 0.3s; }
+footer a:hover { color:var(--secondary); text-shadow:0 0 5px var(--secondary); }
+
+/* RESPONSIVO */
+@media(max-width:900px){ .big-card { flex-direction: column; text-align:center; } .big-card img { margin:auto; } header nav.menu { flex-wrap:wrap; justify-content:center; gap:15px; } .mini-cards { justify-content:center; } }
+@media(max-width:500px){ .card{width:100%;} }
+
+
+/* GARANTIR QUE HTML E BODY OCUPAM 100% DA ALTURA */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* TRANSFORMAR O BODY EM FLEX CONTAINER */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+/* MAIN OCUPA TODO O ESPAÇO DISPONÍVEL */
+main {
+  flex: 1;
+}
+
+/* FOOTER ESTILO ATUALIZADO */
+footer {
+  background: var(--accent);
+  color: var(--text);
+  text-align: center;
+  padding: 25px 20px;
+  font-size: 0.95rem;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+  width: 100%;
+  /* Removemos position e bottom */
+}
+
+/* FOOTER DARK MODE */
+body.dark footer {
+  background: #111;
+  color: #ccc;
+}
+
+/* LINKS DO FOOTER */
+footer a {
+  color: var(--primary);
+  font-weight: 600;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+footer a:hover {
+  color: var(--secondary);
+  text-shadow: 0 0 5px var(--secondary);
+}
+
+/* CENTRALIZAR TÍTULO E FRASE */
+#projetos {
+  text-align: center;
+}
+
+#projetos h2 {
+  font-size: 2rem; /* Ajuste o tamanho se quiser */
+  margin-bottom: 15px;
+}
+
+#projetos p.frase {
+  font-size: 1.1rem; /* Ajuste se quiser */
+  color: var(--text);
+  max-width: 700px;  /* Limita a largura para não ficar gigante */
+  margin: 0 auto 30px auto; /* Centraliza horizontalmente e dá espaçamento abaixo */
+}
+
+</style>
+</head>
+<body>
+
+
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="img/WhatsApp Image 2026-03-19 at 15.57.42.jpeg" alt="Foto de Marcelo de Flávio">
+    <span class="logo-text">Marcelo de Flávio</span>
+  </div>
+  <div class="header-right">
+    <div class="lang-switch">
+      <button onclick="setLanguage('pt')">PT</button>
+      <button onclick="setLanguage('en')">EN</button>
+    </div>
+    <button class="dark-btn" onclick="toggleDark()">🌙</button>
+    <div id="clock"></div>
+  </div>
+  <nav class="menu">
+    <a href="index.html" class="cta">Início</a>
+    <a href="Projectos.html">Projetos</a>
+    <a href="experiencia.html">Experiência</a>
+    <a href="Skills.html">Habilidades</a>
+    <a href="testemunhos.html">Depoimentos</a>
+    <a href="Contacto.html">Contato</a>
+  </nav>
+</header>
+
+<main>
+  <section id="projetos">
+    <h2 data-pt="Projetos e Atividades" data-en="Projects and Activities">Projetos e Atividades</h2>
+    <p class="frase" data-pt="Veja minhas atividades, projetos desenvolvidos e participações" data-en="See my activities, developed projects, and participations">
+      Veja minhas atividades, projetos desenvolvidos e participações
+    </p>
+
+    <!-- BIG CARD -->
+    <div class="big-card fade-in">
+      <div class="mini-cards">
+        <div class="card" onclick="openModal(0)">
+          <img src="img/WhatsApp Image 2026-03-20 at 17.58.39.jpeg" alt="Atividade 1">
+          <h3>Atividade</h3>
+          <p>Atividades que realizei recentemente</p>
+        </div>
+        <div class="card" onclick="openModal(1)">
+          <img src="img/WhatsApp Image 2026-03-20 at 18.09.48.jpeg" alt="Projeto Desenvolvido">
+          <h3>Projeto Desenvolvido</h3>
+          <p>Projetos que eu desenvolvi no periodo do meu Curso</p>
+        </div>
+        <div class="card" onclick="openModal(2)">
+          <img src="img/WhatsApp Image 2026-03-20 at 12.53.47 (2).jpeg" alt="Projeto Participado">
+          <h3>Projeto Participado</h3>
+          <p>Projetos nos quais participei</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- MODAL -->
+<div id="projectModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <!-- Atividade -->
+    <img src="img/WhatsApp Image 2026-03-20 at 17.58.38.jpeg" class="modal-img active">
+    <div class="modal-text active"><b>Atividade: Tive a oportunidade de participar em uma roda de conversa com a Excelentíssima Administradora da Cidade de Pemba. Onde tive a oportunidadede debater sobre os desafios atuis da juventude na nossa bela Cidade de Pemba.</b></div>
+
+    <!-- Projeto Desenvolvido -->
+    <img src="img/.jpeg" class="modal-img">
+    <div class="modal-text"><b>Projeto Desenvolvido: Tive a oportunidade de criar e desenvolver uma Plataforma chamada Raizes da Mente. uma Plataforma desenvolvida pra agendamento de consultas com Profissionais na area de Saude como Psicologos. </b></div>
+
+    <!-- Projeto Participado -->
+    <img src="img/WhatsApp Image 2026-03-20 at 18.17.27 (1).jpeg" class="modal-img">
+    <div class="modal-text"><b>Tive a oportunidade de participar do Workshop sobre os 16 dias de activismo. Promovido pela Amodefa</b></div>
+
+    <div class="modal-controls">
+      <button onclick="prevImage()">&#10094;</button>
+      <button onclick="nextImage()">&#10095;</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTÃO FLUTUANTE MÚSICA -->
+<div class="modal-float" onclick="toggleMusic()">🎵</div>
+<audio id="music" src="img/WhatsApp Audio 2026-03-20 at 17.43.27.mpeg"></audio>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Marcelo de Flávio | <a href="#">LinkedIn</a> | <a href="#">GitHub</a> | <a href="#">Instagram</a></p>
+</footer>
+
+<script>
+// DARK MODE
+function toggleDark(){ document.body.classList.toggle('dark'); }
+
+// RELÓGIO
+function showTime(){
+  const clock = document.getElementById('clock');
+  const date = new Date();
+  clock.innerHTML = date.toLocaleTimeString();
+}
+setInterval(showTime,1000);
+
+// TRADUÇÃO
+function setLanguage(lang){
+  document.querySelectorAll('[data-pt]').forEach(el=>{
+    el.textContent = lang==='pt'?el.getAttribute('data-pt'):el.getAttribute('data-en');
+  });
+}
+
+// MODAL
+let modal = document.getElementById('projectModal');
+let images = document.querySelectorAll('.modal-img');
+let texts = document.querySelectorAll('.modal-text');
+let currentIndex = 0;
+
+function openModal(index){
+  currentIndex = index;
+  modal.style.display='block';
+  showCurrent();
+}
+function closeModal(){ modal.style.display='none'; }
+function showCurrent(){
+  images.forEach(img=>img.classList.remove('active'));
+  texts.forEach(txt=>txt.classList.remove('active'));
+  images[currentIndex].classList.add('active');
+  texts[currentIndex].classList.add('active');
+}
+function nextImage(){ currentIndex=(currentIndex+1)%images.length; showCurrent(); }
+function prevImage(){ currentIndex=(currentIndex-1+images.length)%images.length; showCurrent(); }
+window.onclick = function(e){ if(e.target==modal) closeModal(); }
+
+// MÚSICA
+const music = document.getElementById('music');
+function toggleMusic(){
+  if(music.paused) music.play();
+  else music.pause();
+}
+// Pausar música ao navegar no menu
+document.querySelectorAll('header nav.menu a').forEach(a=>{
+  a.addEventListener('click',()=>music.pause());
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Depoimentos – Marcelo de Flávio</title>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #007bff;
+  --secondary: #00bfff;
+  --text-secondary: #555;
+  --bg-dark: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+  --shadow: 0 8px 25px rgba(0,0,0,0.2);
+  --bg-light: rgba(255,255,255,0.6);
+}
+
+/* ===============================
+   TESTEMUNHOS LAYOUT
+================================ */
+#testemunhos {
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+}
+
+#testemunhos h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+#testemunhos .frase {
+  margin-bottom: 50px;
+  color: var(--text-secondary);
+}
+
+/* CARD GIGANTE */
+.big-card {
+  background: var(--bg-light);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto 50px;
+  transition: 0.3s;
+}
+.big-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* WRAPPER CARDS DENTRO DO BIG CARD */
+.testimonials-wrapper {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+/* DEPOIMENTOS */
+.testimonial-card {
+  background: rgba(255,255,255,0.85);
+  padding: 25px;
+  border-radius: 20px;
+  width: 30%;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+.testimonial-card p {
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.testimonial-card h4 {
+  margin: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.testimonial-card span {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* RESPONSIVO */
+@media(max-width:900px){
+  .testimonials-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .testimonial-card { width: 80%; }
+}
+
+/* ANIMAÇÕES */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+}
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ÍCONE FLUTUANTE COM LETRA M */
+.modal-float {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 1000;
+}
+.modal-float:hover { transform: scale(1.1); }
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.modal-content img {
+  max-width: 300px;
+  border-radius: 15px;
+  display: none;
+}
+
+.modal-content img.active { display: block; }
+
+.modal-text {
+  max-width: 400px;
+  margin-left: 20px;
+  color: #333;
+  font-size: 1rem;
+  display: none;
+}
+
+.modal-text.active { display: block; }
+
+/* FECHAR MODAL */
+.modal-content .close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* BOTÕES DE NAVEGAÇÃO */
+.modal-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-controls button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.modal-controls button:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="img/WhatsApp Image 2026-03-19 at 15.57.42.jpeg" alt="Foto de Marcelo de Flávio">
+    <span class="logo-text">Marcelo de Flávio</span>
+  </div>
+  <div class="header-right">
+    <div class="lang-switch">
+      <button onclick="setLanguage('pt')">PT</button>
+      <button onclick="setLanguage('en')">EN</button>
+    </div>
+    <button class="dark-btn" onclick="toggleDark()">🌙</button>
+    <div id="clock"></div>
+  </div>
+  <nav class="menu">
+    <a href="index.html" class="cta">Início</a>
+    <a href="Projectos.html">Projetos</a>
+    <a href="experiencia.html">Experiência</a>
+    <a href="Skills.html">Habilidades</a>
+    <a href="testemunhos.html">Depoimentos</a>
+    <a href="Contacto.html">Contato</a>
+  </nav>
+</header>
+
+<main>
+<section id="testemunhos">
+  <h2 data-pt="Depoimentos" data-en="Testimonials">Depoimentos</h2>
+  <p class="frase" data-pt="O que as pessoas dizem sobre mim" data-en="What people say about me">O que as pessoas dizem sobre mim</p>
+
+  <!-- CARD GIGANTE -->
+  <div class="big-card fade-in">
+
+    <!-- WRAPPER DOS CARDS -->
+    <div class="testimonials-wrapper">
+      <div class="testimonial-card fade-in">
+        <p>"Marcelo é extremamente profissional e sempre entrega resultados acima do esperado."</p>
+        <h4>João Silva</h4>
+        <span>CEO, Empresa X</span>
+      </div>
+
+      <div class="testimonial-card fade-in">
+        <p>"Trabalhar com Marcelo foi uma experiência incrível, sua criatividade é fora de série."</p>
+        <h4>Mussagi Fernando Omuge</h4>
+        <span>Programador Web, (Secretario do P.I), Parlamento Infantil Provincial de Cabo Delgado</span>
+      </div>
+
+      <div class="testimonial-card fade-in">
+        <p>"Comprometido, Motivado e sabe o que faz. Recomendo Marcelo para qualquer projeto."</p>
+        <h4>Estelio Estevao Bahate</h4>
+        <span>Deputado e Mentor, Parlamento Infantil de Pemba</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Ícone flutuante -->
+  <div class="modal-float" onclick="openModal()">M</div>
+</section>
+
+<!-- MODAL -->
+<div id="testimonialModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <img src="img/WhatsApp Image 2026-03-20 at 13.03.35.jpeg" class="modal-img active">
+    <div class="modal-text active" data-pt="Sorria… você nunca sabe quem pode acabar se apaixonando pelo seu sorriso" data-en="Smile… you never know who might fall in love with your smile"><b>Sorria… você nunca sabe quem pode acabar se apaixonando pelo seu sorriso</b></div>
+
+    <img src="img/WhatsApp Image 2026-03-19 at 17.03.47 (3).jpeg" class="modal-img">
+    <div class="modal-text" data-pt="A imaginação é mais importante que o conhecimento. O conhecimento é limitado..." data-en="Imagination is more important than knowledge. Knowledge is limited…"><b>A imaginação é mais importante que o conhecimento. O conhecimento é limitado, enquanto a imaginação abraça o mundo inteiro...</b></div>
+
+    <img src="img/WhatsApp Image 2026-03-19 at 17.03.47 (2).jpeg" class="modal-img">
+    <div class="modal-text" data-pt="A natureza do homem é refletida no olhar" data-en="The nature of man is reflected in the eyes"><b>“A natureza do homem é refletida no olhar.”</b></div>
+
+    <div class="modal-controls">
+      <button onclick="prevImage()">&#10094;</button>
+      <button onclick="nextImage()">&#10095;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// DARK MODE
+function toggleDark(){
+  document.body.classList.toggle('dark');
+}
+
+// RELÓGIO
+function showTime(){
+  const clock = document.getElementById('clock');
+  const date = new Date();
+  clock.innerHTML = date.toLocaleTimeString();
+}
+setInterval(showTime, 1000);
+
+// TRADUÇÃO
+function setLanguage(lang){
+  // traduzir elementos com data-pt/data-en
+  document.querySelectorAll('[data-pt]').forEach(el=>{
+    el.textContent = lang === 'pt' ? el.getAttribute('data-pt') : el.getAttribute('data-en');
+  });
+}
+
+// MODAL
+let modal = document.getElementById("testimonialModal");
+let images = document.querySelectorAll(".modal-img");
+let texts = document.querySelectorAll(".modal-text");
+let currentIndex = 0;
+
+function openModal(){
+  modal.style.display = "block";
+  showCurrent();
+}
+function closeModal(){
+  modal.style.display = "none";
+}
+function showCurrent(){
+  images.forEach(img=>img.classList.remove("active"));
+  texts.forEach(txt=>txt.classList.remove("active"));
+  images[currentIndex].classList.add("active");
+  texts[currentIndex].classList.add("active");
+}
+function nextImage(){
+  currentIndex = (currentIndex +1)%images.length;
+  showCurrent();
+}
+function prevImage(){
+  currentIndex = (currentIndex -1 + images.length)%images.length;
+  showCurrent();
+}
+
+// Fecha modal clicando fora
+window.onclick = function(event){
+  if(event.target == modal) closeModal();
+}
+</script>
+
+</body>
+</html>
